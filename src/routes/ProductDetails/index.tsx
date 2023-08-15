@@ -9,8 +9,7 @@ const product: ProductDTO = {
   id: 2,
   name: "Macbook promax",
   description: "O melhor da categoria!",
-  imgUrl:
-    "https://github.com/devsuperior/dscatalog-resources/blob/master/backend/img/11-big.jpg",
+  imgUrl: "https://images.app.goo.gl/id7QMz32vZGvqSpg6",
   price: 2500.99,
   categories: [
     {
@@ -24,8 +23,8 @@ const product: ProductDTO = {
     {
       id: 4,
       name: "Importados",
-    }
-  ]
+    },
+  ],
 };
 
 export default function ProductDetails() {
