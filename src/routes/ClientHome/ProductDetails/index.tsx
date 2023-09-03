@@ -22,7 +22,7 @@ export default function ProductDetails() {
       .catch(() => {
         navigate("/");
       });
-  }, []);
+  }, [params.productId, navigate]);
 
   return (
     <main>
