@@ -8,5 +8,5 @@ export type CredentialsDTO = {
 export type AccessTokenPayloadDTO = {
   exp: number;
   user_name: string;
-  authotities: RoleEnum[];
+  authorities: RoleEnum[];
 };
