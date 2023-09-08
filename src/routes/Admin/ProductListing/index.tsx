@@ -20,6 +20,10 @@ export default function ProductListing() {
     page: 0,
     name: "",
   });
+  const [dialogInfoData, setDialogInfoData] = useState({
+    visible: false,
+    message: "Operação com Sucesso!",
+  });
 
   useEffect(() => {
     productService
@@ -39,6 +43,14 @@ export default function ProductListing() {
 
   function handleNextPageClick() {
     setqueryParams({ ...queryParams, page: queryParams.page + 1 });
+  }
+
+  function handleDialogInfoClose() {
+    setDialogInfoData({ ...dialogInfoData, visible: false });
+  }
+
+  function handleDeleteClick() {
+    setDialogInfoData({ ...dialogInfoData, visible: true });
   }
 
   return (
@@ -75,14 +87,14 @@ export default function ProductListing() {
                   <img
                     className="dsc-product-listing-btn"
                     src={editIcon}
-                    alt="edit"
+                    alt="Editar"
                   />
                 </td>
                 <td>
-                  <img
+                  <img onClick={handleDeleteClick}
                     className="dsc-product-listing-btn"
                     src={deleteIcon}
-                    alt="delete"
+                    alt="Deletar"
                   />
                 </td>
               </tr>
@@ -95,7 +107,12 @@ export default function ProductListing() {
           </div>
         )}
       </section>
-      <DialogInfo />
+      {dialogInfoData.visible && (
+        <DialogInfo
+          message={dialogInfoData.message}
+          onDialogClose={handleDialogInfoClose}
+        />
+      )}
     </main>
   );
 }
