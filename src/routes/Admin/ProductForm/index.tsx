@@ -48,16 +48,11 @@ export default function ProductForm() {
   }, []);
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-    const name = event.target.name;
-    const dataUpdate = forms.update(formData, name, value);
-    const dataValidated = forms.validate(dataUpdate, name);
-    setFormData(dataValidated);
+    setFormData(forms.updateAndValidate(formData, event.target.name, event.target.value));
   }
 
   function handleTurnDirty(name: string) {
-    const newFormData = forms.toDirty(formData, name);
-    setFormData(newFormData);
+    setFormData(forms.dirtyAndValidate(formData, name));
   }
 
   return (
