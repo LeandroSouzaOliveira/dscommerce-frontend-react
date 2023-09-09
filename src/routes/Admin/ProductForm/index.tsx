@@ -6,10 +6,9 @@ import { useEffect, useState } from "react";
 import FormInput from "../../../components/FormInput";
 
 export default function ProductForm() {
-
   const params = useParams();
 
-  const isEditing = params.productId !== 'create';
+  const isEditing = params.productId !== "create";
 
   const [formData, setFormData] = useState<any>({
     name: {
@@ -37,11 +36,12 @@ export default function ProductForm() {
 
   useEffect(() => {
     if (isEditing) {
-      productService.findById(Number(params.productId)).then(reponse => {
-        console.log(reponse.data);
-      })
+      productService.findById(Number(params.productId)).then((reponse) => {
+        const newFormData = forms.updateAll(formData, reponse.data);
+        setFormData(newFormData);
+      });
     }
-  }, [])
+  }, []);
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
