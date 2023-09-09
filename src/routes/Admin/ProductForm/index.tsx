@@ -17,6 +17,11 @@ export default function ProductForm() {
       name: "name",
       type: "text",
       placeholder: "Nome",
+      validation: function (value: string) {
+        return /^.{3,80}$/.test(value);
+        //return value.length >= 3 && value.length <= 80;
+      },
+      message: "Favor informar um nome de 3 a 80 caracteres",
     },
     price: {
       value: "",
@@ -24,7 +29,7 @@ export default function ProductForm() {
       name: "price",
       type: "number",
       placeholder: "Preço",
-      validation: function (value: any) {
+      validation: function (value: number) {
         return Number(value) > 0;
       },
       message: "Favor informar um valor positivo",
@@ -48,7 +53,9 @@ export default function ProductForm() {
   }, []);
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setFormData(forms.updateAndValidate(formData, event.target.name, event.target.value));
+    setFormData(
+      forms.updateAndValidate(formData, event.target.name, event.target.value)
+    );
   }
 
   function handleTurnDirty(name: string) {
