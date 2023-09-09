@@ -31,6 +31,7 @@ export default function ProductListing() {
 
   const [dialogConfirmationData, setDialogConfirmationData] = useState({
     visible: false,
+    id: 0,
     message: "Tem certeza?",
   });
 
@@ -58,13 +59,35 @@ export default function ProductListing() {
     setDialogInfoData({ ...dialogInfoData, visible: false });
   }
 
-  function handleDeleteClick() {
-    setDialogConfirmationData({ ...dialogConfirmationData, visible: true });
+  function handleDeleteClick(productId: number) {
+    setDialogConfirmationData({
+      ...dialogConfirmationData,
+      id: productId,
+      visible: true,
+    });
   }
 
-  function handleDialogConfirmationAnswer(answer: boolean) {
-    console.log("Resposta", answer);
-    setDialogConfirmationData({ ...dialogConfirmationData, visible: false });
+  async function handleDialogConfirmationAnswer(
+    answer: boolean,
+    productId: number
+  ) {
+    if (answer === true) {
+      try {
+        await productService.deleteById(productId);
+        setProducts([]);
+        setqueryParams({ ...queryParams, page: 0 });
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : "Erro desconhecido";
+        setDialogInfoData({ visible: true, message: errorMessage });
+      }
+    }
+
+    setDialogConfirmationData({
+      ...dialogConfirmationData,
+      id: productId,
+      visible: false,
+    });
   }
 
   return (
@@ -77,12 +100,14 @@ export default function ProductListing() {
         <SearchBar onSearch={handleSearch} />
         <table className="dsc-table dsc-mb20 dsc-mt20">
           <thead>
-            <th className="dsc-table-576">ID</th>
-            <th></th>
-            <th className="dsc-table-768">Preço</th>
-            <th className="dsc-txt-left">Nome</th>
-            <th></th>
-            <th></th>
+            <tr>
+              <th className="dsc-table-576">ID</th>
+              <th></th>
+              <th className="dsc-table-768">Preço</th>
+              <th className="dsc-txt-left">Nome</th>
+              <th></th>
+              <th></th>
+            </tr>
           </thead>
           <tbody>
             {products.map((product) => (
@@ -106,7 +131,7 @@ export default function ProductListing() {
                 </td>
                 <td>
                   <img
-                    onClick={handleDeleteClick}
+                    onClick={() => handleDeleteClick(product.id)}
                     className="dsc-product-listing-btn"
                     src={deleteIcon}
                     alt="Deletar"
@@ -130,6 +155,7 @@ export default function ProductListing() {
       )}
       {dialogConfirmationData.visible && (
         <DialogConfirmation
+          id={dialogConfirmationData.id}
           message={dialogConfirmationData.message}
           onDialogAnswer={handleDialogConfirmationAnswer}
         />
