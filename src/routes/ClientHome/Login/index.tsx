@@ -3,6 +3,7 @@ import * as authService from "../../../services/auth-service";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ContextToken } from "../../../utils/context-token";
+import FormInput from "../../../components/FormInput";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -35,13 +36,16 @@ export default function Login() {
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     const name = event.target.name;
-    setFormData({ ...formData, [name]: {...formData[name], value: value}});
+    setFormData({ ...formData, [name]: { ...formData[name], value: value } });
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     authService
-      .loginRequest({username: formData.username.value, password: formData.password.value})
+      .loginRequest({
+        username: formData.username.value,
+        password: formData.password.value,
+      })
       .then((response) => {
         authService.saveAccessToken(response.data.access_token);
         setContextTokenPayload(authService.getAccessTokenPayload());
@@ -60,23 +64,17 @@ export default function Login() {
             <h2>Login</h2>
             <div className="dsc-form-controls-container">
               <div>
-                <input
-                  name="username"
-                  value={formData.username.value}
+                <FormInput
+                  {...formData.username}
                   className="dsc-form-control"
-                  type="text"
-                  placeholder="Email"
                   onChange={handleInputChange}
                 />
                 <div className="dsc-form-error"></div>
               </div>
               <div>
-                <input
-                  name="password"
-                  value={formData.password.value}
+                <FormInput
+                  { ...formData.password }
                   className="dsc-form-control"
-                  type="password"
-                  placeholder="Senha"
                   onChange={handleInputChange}
                 />
               </div>
