@@ -7,6 +7,7 @@ import { ProductDTO } from "../../../models/product";
 import SearchBar from "../../../components/SearchBar";
 import ButtonNextPage from "../../../components/ButtonNextPage";
 import DialogInfo from "../../../components/DialogInfo";
+import DialogConfirmation from "../../../components/DialogConfirmation";
 
 type QueryParams = {
   page: number;
@@ -15,14 +16,22 @@ type QueryParams = {
 
 export default function ProductListing() {
   const [products, setProducts] = useState<ProductDTO[]>([]);
+
   const [isLastPage, setIsLastPage] = useState(false);
+
   const [queryParams, setqueryParams] = useState<QueryParams>({
     page: 0,
     name: "",
   });
+
   const [dialogInfoData, setDialogInfoData] = useState({
     visible: false,
     message: "Operação com Sucesso!",
+  });
+
+  const [dialogConfirmationData, setDialogConfirmationData] = useState({
+    visible: false,
+    message: "Tem certeza?",
   });
 
   useEffect(() => {
@@ -50,7 +59,12 @@ export default function ProductListing() {
   }
 
   function handleDeleteClick() {
-    setDialogInfoData({ ...dialogInfoData, visible: true });
+    setDialogConfirmationData({ ...dialogConfirmationData, visible: true });
+  }
+
+  function handleDialogConfirmationAnswer(answer: boolean) {
+    console.log("Resposta", answer);
+    setDialogConfirmationData({ ...dialogConfirmationData, visible: false });
   }
 
   return (
@@ -91,7 +105,8 @@ export default function ProductListing() {
                   />
                 </td>
                 <td>
-                  <img onClick={handleDeleteClick}
+                  <img
+                    onClick={handleDeleteClick}
                     className="dsc-product-listing-btn"
                     src={deleteIcon}
                     alt="Deletar"
@@ -111,6 +126,12 @@ export default function ProductListing() {
         <DialogInfo
           message={dialogInfoData.message}
           onDialogClose={handleDialogInfoClose}
+        />
+      )}
+      {dialogConfirmationData.visible && (
+        <DialogConfirmation
+          message={dialogConfirmationData.message}
+          onDialogAnswer={handleDialogConfirmationAnswer}
         />
       )}
     </main>
