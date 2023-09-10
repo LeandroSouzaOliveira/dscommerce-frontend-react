@@ -97,8 +97,13 @@ export default function ProductForm() {
     setFormData(forms.dirtyAndValidate(formData, name));
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<HTMLDivElement>) {
     event.preventDefault();
+    const formDataValidated = forms.dirtyAndValidateAll(formData);
+    if (forms.hasAnyInvalid(formDataValidated)) {
+      setFormData(formDataValidated);
+      return;
+    }
   }
 
   return (
