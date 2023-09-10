@@ -61,9 +61,8 @@ export function validateAll(inputs: any) {
     if (inputs[name].validation) {
       const isInvalid = !inputs[name].validation(inputs[name].value);
       newInputs[name] = { ...inputs[name], invalid: isInvalid.toString() };
-    }
-    else {
-      newInputs[name] = { ...inputs[name] }
+    } else {
+      newInputs[name] = { ...inputs[name] };
     }
   }
   return newInputs;
@@ -80,4 +79,14 @@ export function hasAnyInvalid(inputs: any) {
     }
   }
   return false;
+}
+
+export function setBackendErrors(inputs: any, errors: any[]) {
+  const newInputs = { ...inputs };
+  errors.forEach((item) => {
+    newInputs[item.fieldName].message = item.message;
+    newInputs[item.fieldName].dirty = "true";
+    newInputs[item.fieldName].invalid = "true";
+  });
+  return newInputs;
 }
