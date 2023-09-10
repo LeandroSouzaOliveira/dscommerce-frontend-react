@@ -2,7 +2,7 @@ import "./styles.css";
 import * as forms from "../../../utils/forms";
 import * as productService from "../../../services/product-service";
 import * as categoryService from "../../../services/category-service";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CategoryDTO } from "../../../models/category";
 import FormInput from "../../../components/FormInput";
@@ -12,6 +12,8 @@ import { selectStyles } from "../../../utils/select";
 
 export default function ProductForm() {
   const params = useParams();
+
+  const navigate = useNavigate();
 
   const isEditing = params.productId !== "create";
 
@@ -99,11 +101,23 @@ export default function ProductForm() {
 
   function handleSubmit(event: React.FormEvent<HTMLDivElement>) {
     event.preventDefault();
+
     const formDataValidated = forms.dirtyAndValidateAll(formData);
+
     if (forms.hasAnyInvalid(formDataValidated)) {
       setFormData(formDataValidated);
       return;
     }
+
+    const requestBody = forms.toValues(formData);
+
+    if (isEditing) {
+      requestBody.id = params.productId;
+    }
+
+    productService.updateRequest(requestBody).then(() => {
+      navigate("/admin/products");
+    });
   }
 
   return (
@@ -158,7 +172,9 @@ export default function ProductForm() {
                   getOptionLabel={(obj: any) => obj.name}
                   getOptionValue={(obj: any) => String(obj.id)}
                 />
-                <div className="dsc-form-error">{formData.categories.message}</div>
+                <div className="dsc-form-error">
+                  {formData.categories.message}
+                </div>
               </div>
               <div>
                 <FormTextArea
