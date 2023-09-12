@@ -71,6 +71,9 @@ yarn
 yarn dev
 ```
 
+# Agradecimentos
+- DevSuperior https://devsuperior.com.br/
+
 # Autor
 
 Leandro de Oliveira Souza
