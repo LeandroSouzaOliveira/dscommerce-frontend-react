@@ -1,27 +1,73 @@
-# React + TypeScript + Vite
+# DSCommerce
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/LeandroSouzaOliveira/dscommerce-frontend-react/blob/main/LICENSE) 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Sobre o projeto
 
-Currently, two official plugins are available:
+https://dscommerce-los.netlify.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+DSCommerce é uma aplicação full stack web e mobile, construída durante o curso **Formação Desenvolvedor Moderno** (#edição1), organizado pela [DevSuperior](https://devsuperior.com "Site da DevSuperior").
 
-## Expanding the ESLint configuration
+Inicialmente a aplicação apresenta uma página contendo pesquisa e catalogo de produtos. Uma vez escolhido o produto de interesse, com um click sobre ele, é aberta uma página de detalhes do produto, onde é dada opção para escolha de novos produtos ou comprar. Por questões de segurança é exigido que a partir dessa etapa o usuário se identifique por login. Feito o login, admitido para usuários administradores e clientes, é possível fechar o pedido. Caso o usuário seja administrador, ele pode ter acesso a uma área administrativa, com identidade distinta daquela usada para o cliente. Nessa área, esse usuário pode editar ou incluir novos produtos, que nesse caso alimentam o banco de dados por meio de requisições.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Layout mobile (dois exemplos)
+![Mobile Cart](https://github.com/LeandroSouzaOliveira/assets/blob/main/dscommerce/Cart.png) ![Mobile Confirmation](https://github.com/LeandroSouzaOliveira/assets/blob/main/dscommerce/Confirmation.png)
 
-- Configure the top-level `parserOptions` property like this:
+## Layout web (dois exemplos)
+![Web product Listing](https://github.com/LeandroSouzaOliveira/assets/blob/main/dscommerce/Product%20Listing.png)
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+![Web Product Form](https://github.com/LeandroSouzaOliveira/assets/blob/main/dscommerce/Product%20Form.png)
+
+## Modelo conceitual
+![Modelo Conceitual](https://github.com/LeandroSouzaOliveira/assets/blob/main/dscommerce/Conceptual%20Model.png)
+
+# Tecnologias utilizadas
+## Back end
+- Java
+- Spring Boot
+- JPA / Hibernate
+- Maven
+- OAuth2 / JWT
+- Biblioteca QS
+## Front end
+- HTML / CSS / JavaScript / TypeScript
+- ReactTS (Vite)
+- React Router DOM
+- React Select
+- AXIOS
+- History (5.3.0)
+- JWT-DECODE (3.1.2)
+## Implantação em produção
+- Back end: localhost
+- Front end web: Netlify
+- Banco de dados: H2
+
+# Como executar o projeto
+
+## Back end
+Pré-requisitos: Java 17
+
+```bash
+# clonar repositório
+git clone https://github.com/LeandroSouzaOliveira/dscommerce
+
+# executar o projeto
+./mvnw spring-boot:run
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Front end web
+Pré-requisitos: vite / yarn / react
+
+```bash
+# clonar repositório
+git clone https://github.com/LeandroSouzaOliveira/dscommerce-frontend-react
+
+# instalar dependências
+yarn
+
+# executar o projeto
+yarn dev
+```
+
+# Autor
+
+Leandro de Oliveira Souza
