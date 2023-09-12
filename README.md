@@ -20,6 +20,10 @@ Inicialmente a aplicação apresenta uma página contendo pesquisa e catalogo de
 ## Modelo conceitual
 ![Modelo Conceitual](https://github.com/LeandroSouzaOliveira/assets/blob/main/dscommerce/Conceptual%20Model.png)
 
+# Competências:
+- Padrão camadas;
+- Biblioteca QS
+
 # Tecnologias utilizadas
 ## Back end
 - Java
@@ -27,7 +31,6 @@ Inicialmente a aplicação apresenta uma página contendo pesquisa e catalogo de
 - JPA / Hibernate
 - Maven
 - OAuth2 / JWT
-- Biblioteca QS
 ## Front end
 - HTML / CSS / JavaScript / TypeScript
 - ReactTS (Vite)
