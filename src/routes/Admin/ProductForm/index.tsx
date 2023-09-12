@@ -2,7 +2,7 @@ import "./styles.css";
 import * as forms from "../../../utils/forms";
 import * as productService from "../../../services/product-service";
 import * as categoryService from "../../../services/category-service";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CategoryDTO } from "../../../models/category";
 import FormInput from "../../../components/FormInput";
